@@ -4,6 +4,7 @@ metadata:
   name: nodejs-configmap
 data:
   db_host: postgresql
+  port: "3000"
   db_database: postgres
   db_dailect: postgres
   db_port: "5432"

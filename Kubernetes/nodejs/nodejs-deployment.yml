@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodejs-app
+  name: nodejs
   labels:
-    app: nodejs
+    io.kompose.service: nodejs
 spec:
   replicas: 1
   selector:
@@ -18,13 +18,18 @@ spec:
       - name: nodejs-app
         image: doriancanville/nodejs-exemple:1.0
         ports:
-        - containerPort: 3000
+          - containerPort: 3000
         env:
         - name: DB_HOST
           valueFrom:
             configMapKeyRef:
               name: nodejs-configmap
               key: db_host
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-configmap
+              key: port
         - name:  DB_USERNAME
           valueFrom:
             secretKeyRef:
