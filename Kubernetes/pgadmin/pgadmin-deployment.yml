@@ -18,9 +18,15 @@ spec:
       containers:
         - env:
             - name: PGADMIN_DEFAULT_EMAIL
-              value: admin@admin.fr
+              valueFrom:
+                secretKeyRef:
+                  name: pgadmin-secret
+                  key: pgadmin-email
             - name: PGADMIN_DEFAULT_PASSWORD
-              value: admin
+              valueFrom:
+                secretKeyRef:
+                  name: pgadmin-secret
+                  key: pgadmin-password
           image: dpage/pgadmin4
           name: pgadmin4-container
           ports:

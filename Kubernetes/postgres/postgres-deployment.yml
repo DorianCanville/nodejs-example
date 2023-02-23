@@ -19,11 +19,19 @@ spec:
         image: postgres:latest
         ports:
         - containerPort: 5432
+        resources:
+          {}
         env:
         - name: POSTGRES_USER
-          value: postgres
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres_user
         - name: POSTGRES_PASSWORD
-          value: admin
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres_password
         - name: POSTGRES_DB
           value: postgres
         volumeMounts:

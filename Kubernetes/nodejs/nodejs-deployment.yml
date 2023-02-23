@@ -21,25 +21,63 @@ spec:
         - containerPort: 3000
         env:
         - name: DB_HOST
-          value: postgresql
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-configmap
+              key: db_host
         - name:  DB_USERNAME
-          value: postgres
+          valueFrom:
+            secretKeyRef:
+              name: nodejs-secret
+              key: db_username
         - name: DB_PASSWORD
-          value: admin
+          valueFrom:
+            secretKeyRef:
+              name: nodejs-secret
+              key: db_password
         - name: DB_DATABASE
-          value: postgres
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-configmap
+              key: db_database
         - name: DB_DAILECT
-          value: postgres
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-configmap
+              key: db_dailect
         - name: DB_PORT
-          value: "5432" 
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-configmap
+              key: db_port
         - name: ACCESS_TOKEN_SECRET
-          value: YOUR_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nodejs-secret
+              key: access_token_secret
         - name: REFRESH_TOKEN_SECRET
-          value: YOUR_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nodejs-secret
+              key: refresh_token_secret
         - name: ACCESS_TOKEN_EXPIRY
-          value: 15m
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-configmap
+              key: access_token_expiry
         - name: REFRESH_TOKEN_EXPIRY
-          value: 7d
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-configmap
+              key: refresh_token_expiry
         - name: REFRESH_TOKEN_COOKIE_NAME
-          value: jid
-       
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-configmap
+              key: refresh_token_cookie_name
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+                
